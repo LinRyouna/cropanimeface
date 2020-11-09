@@ -2,6 +2,7 @@ import glob
 import cv2
 import sys
 import os
+import random 
 def detect_face(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     face_cascade = cv2.CascadeClassifier("lbpcascade_animeface.xml")
@@ -11,8 +12,8 @@ def detect_face(img):
 
     faces = face_cascade.detectMultiScale(gray,
                                      # detector options
-                                     scaleFactor = 1.05,
-                                     minNeighbors = 2,
+                                     scaleFactor = 1.1,
+                                     minNeighbors = 3,
                                      minSize = (50, 50))
     return faces
 
@@ -24,11 +25,14 @@ for img in glob.glob(filename+'/*.*'):
     print(face)
     if (len(face) == 0):
         continue
-    i=0
+    #i=0
     for(ex, ey, ew, eh) in face:
         crop_image = var_img[ey:ey+eh, ex:ex+ew]
-        cv2.imwrite("NyaH"+str(i)+".png", crop_image)
-        i=i+1
+        #i=i+1
+        ##cv2.imshow("cropped", crop_image)
+        #cv2.waitKey(0)  
+        cv2.imwrite("NyaH"+str(random.randint(1,999999999999))+".png", crop_image)
+        #i=i+1
         #cv2.imshow("cropped", crop_image)
         #cv2.waitKey(0)  
     
